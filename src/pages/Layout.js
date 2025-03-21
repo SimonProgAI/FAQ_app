@@ -7,7 +7,7 @@ import NoPage from "./NoPage.js";
 const Layout = () => {
     return(
         <>
-            <nav>
+            <nav className="navbar">
                 <ul>
                     <li>
                         <Link to="/">Home</Link>&nbsp;&nbsp;
