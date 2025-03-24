@@ -1,6 +1,6 @@
 import React from "react";
 
-const RegisterForm = () => {
+const RegisterForm = ({pwordRef, pwordRepeatRef, passwordCheck ,termsAndConditions, handleCheckedBox}) => {
     return(
         <div>
             <h1>Register User</h1>
@@ -11,13 +11,19 @@ const RegisterForm = () => {
                 </label>
                 <label>
                     Password
-                    <input type="password" placeholder="Password"></input>
+                    <input ref={pwordRef} type="password" placeholder="Password"></input>
                 </label>
                 <label>
                     Repeat Password
-                    <input type="password" placeholder="Password"></input>
+                    <input ref={pwordRepeatRef} type="password" placeholder="Password"></input>
                 </label>
-                <button type="button">Register User</button>
+                <br/>
+                <label>
+                    <input type="checkbox" defaultChecked={termsAndConditions} onChange={handleCheckedBox}/>
+                    I accept the terms and conditions.
+                </label>
+                <br/>
+                <button onClick={passwordCheck}>Register User</button>
             </form>
         </div>
     );

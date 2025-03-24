@@ -1,10 +1,10 @@
 import React from "react";
-import RegisterForm from "../components/RegisterForm.js";
+import RegisterCompManager from "../components/RegisterCompManager";
 
 const Register = () => {
     return(
         <div>
-            <RegisterForm />
+            <RegisterCompManager />
         </div>
     )
 }
