@@ -1,54 +1,82 @@
 import React from "react";
-import {useState, useRef} from "react";
+import {useState, useRef, useEffect} from "react";
+import '../App.css';
+
 
 function RegisterForm(){
+    //Add a unameRef and check
+    //push uname and pword in mysql
+    //setUname, setPword  
     
+    const unameRef = useRef();
     const pwordRef = useRef();
     const pwordRepeatRef = useRef();
+    
+    const [errMsgUname, setErrMsgUname] = useState("");
+    const [errMsgPword, setErrMsgPword] = useState("");
+    const [errMsgPwordRepeat, setErrMsgPwordRepeat] = useState("");
     const [termsAndConditions, setTermsAndConditions] = useState(false);
+    const [checkBoxColor, setCheckBoxColor] = useState({ color: 'black', fontSize: '16px' });
     
     function handleCheckedBox(e){ 
         console.log(e.target.checked);
         setTermsAndConditions(e.target.checked);
-    }
-    function passwordCheck(e){
+        if(termsAndConditions){
+            setCheckBoxColor({ color: 'black', fontSize: '16px' })
+        }else{
+            setCheckBoxColor({ color: 'green', fontSize: '16px' });
+        };
+    };
+
+    function handleRegister(e){
         e.preventDefault();
+
+        const uname = unameRef.current.value;
+        console.log(uname);
         const pword = pwordRef.current.value;
         console.log(pword);
         const pwordRepeat = pwordRepeatRef.current.value;
         console.log(pwordRepeat);
-        
-        const errorMsg1 = "Enter a password that is at least 8 characters long and contains a digit.";
-        const errorMsg2 = "The passwords do not match.";
-        const errorMsg3 = "The password must contain at least one digit.";
-        const errorMsg4 = "The password must contain at least one letter."
-        const successMsg = "The passwords match."
-
+    //ERR MESSAGES VARIABLES 
+        const errorMsg1 = "Username already exists.";
+        const errorMsg2 = "Invalid username.";
+        const errorMsg3 = "Invalid password. Enter a password that is at least 8 characters long and contains a number.";
+        const errorMsg4 = "The passwords do not match";
+    //SUPPORTING FUNCTIONS
         function hasNumber(pword1){
             return /\d/.test(pword1);
         };
         function hasLetter(pword1){
-            const regExp = /[a-zA-Z]/;
-            return regExp.test(pword1);
+            return /[a-zA-Z]/.test(pword1);
+        };
+    //IFs
+        //IF uname already exist
+        
+        if(uname.length===0){
+            setErrMsgUname(errorMsg2);
+        }
+        if(pword.length<8 || !hasNumber(pword) || !hasLetter(pword)){
+            //console.log(errorMsg3);
+            setErrMsgPword(errorMsg3);
+        }else{
+            setErrMsgPword("");
         };
 
-        if(pword.length<8){
-            console.log(errorMsg1);
-        };
-        if (!hasNumber(pword)){
-            console.log(errorMsg3);
-        };
-        if(!hasLetter(pword)){
-            console.log(errorMsg4)
-        }
         if(pword !== pwordRepeat){
-            console.log(errorMsg2);
+            //console.log(errorMsg4);
+            setErrMsgPwordRepeat(errorMsg4);
+        }else{
+            setErrMsgPwordRepeat("");
         };
-        //success message should display only if ALL conditions are met
-        if(pword === pwordRepeat&&pword.length>7&&hasNumber(pword)){
-            console.log(successMsg);
+
+        if(!termsAndConditions){
+            setCheckBoxColor({ color: 'red', fontSize: '16px' });
+            console.log(checkBoxColor);
         };
-    }
+    };
+
+    //Navigate to login
+    //Navigate to dashboard
 
     return(
         <div>
@@ -56,23 +84,26 @@ function RegisterForm(){
             <form className="loginForm">
                 <label>
                     Username
-                    <input type="text" placeholder="Username"/>
+                    <input ref={unameRef}type="text" placeholder="Username"/>
+                    <span className="errMsg">{errMsgUname}</span>
                 </label>
                 <label>
                     Password
                     <input ref={pwordRef} type="password" placeholder="Password"></input>
+                    <span className="errMsg">{errMsgPword}</span>
                 </label>
                 <label>
                     Repeat Password
                     <input ref={pwordRepeatRef} type="password" placeholder="Password"></input>
+                    <span className="errMsg">{errMsgPwordRepeat}</span>
                 </label>
                 <br/>
-                <label>
+                <label style={checkBoxColor}>
                     <input type="checkbox" defaultChecked={termsAndConditions} onChange={handleCheckedBox}/>
                     I accept the terms and conditions.
                 </label>
                 <br/>
-                <button onClick={passwordCheck}>Register User</button>
+                <button onClick={handleRegister}>Register User</button>
             </form>
         </div>
     );
