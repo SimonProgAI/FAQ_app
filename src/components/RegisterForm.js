@@ -1,5 +1,6 @@
 import React from "react";
 import {useState, useRef, useEffect} from "react";
+import {useNavigate} from 'react-router-dom';
 import '../App.css';
 
 
@@ -11,12 +12,14 @@ function RegisterForm(){
     const unameRef = useRef();
     const pwordRef = useRef();
     const pwordRepeatRef = useRef();
+    const navigate = useNavigate();
     
     const [errMsgUname, setErrMsgUname] = useState("");
     const [errMsgPword, setErrMsgPword] = useState("");
     const [errMsgPwordRepeat, setErrMsgPwordRepeat] = useState("");
     const [termsAndConditions, setTermsAndConditions] = useState(false);
     const [checkBoxColor, setCheckBoxColor] = useState({ color: 'black', fontSize: '16px' });
+    const [registerCriteria, setRegisterCriteria] = useState(false);
 
     const errorMsg1 = "Username already exists.";
     const errorMsg2 = "Invalid username.";
@@ -43,20 +46,6 @@ function RegisterForm(){
         let userCreds = {};
         userCreds.uname = uname;
         userCreds.pword = pword;
-
-        console.log(userCreds);
-
-        let parameter = {
-            method: 'POST'
-        }
-
-        let url = `http://localhost:5000/${userCreds}`;
-
-        fetch(url, parameter)
-            .then(res => res.json())
-            .then(json => 
-                console.log(JSON.stringify(json)));
-
     //SUPPORTING FUNCTIONS
         function hasNumber(pword1){
             return /\d/.test(pword1);
@@ -69,30 +58,63 @@ function RegisterForm(){
         
         if(uname.length===0){
             setErrMsgUname(errorMsg2);
-        }
+        };
         if(pword.length<8 || !hasNumber(pword) || !hasLetter(pword)){
             //console.log(errorMsg3);
             setErrMsgPword(errorMsg3);
         }else{
             setErrMsgPword("");
         };
-
         if(pword !== pwordRepeat){
             //console.log(errorMsg4);
             setErrMsgPwordRepeat(errorMsg4);
         }else{
             setErrMsgPwordRepeat("");
         };
-
         if(!termsAndConditions){
             setCheckBoxColor({ color: 'red', fontSize: '16px' });
             //console.log(checkBoxColor);
         };
+        if(pword.length>7 && hasNumber(pword) && hasLetter(pword) && pword === pwordRepeat){
+            setRegisterCriteria(true);
+        };
+        if(registerCriteria===true){
+            let parameter = {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify(userCreds)
+            }
+            console.log(parameter);
+    
+            let url = `http://localhost:5000/user`;
+            //console.log(JSON.stringify(userCreds));
+           
+            fetch(url, parameter)
+                .then(res => 
+                    res.json()
+                )
+                .then(json => {
+                    console.log(json);
+                    navigate('/login');
+                })
+                .catch(err =>{
+                    //console.log(err+"something something")
+                    /*
+                    if(err.message.code==="ER_DUP_ENTRY"){
+                        setErrMsgUname(errorMsg1);
+                        setRegisterCriteria(false);
+                    }else{
+                        console.error(err);
+                    }
+                    */    
+                });
+        };
     };
 
     //Navigate to login
-    //Navigate to dashboard
-
+    //Navigate to dashboar
     return(
         <div>
             <h1>Register User</h1>
