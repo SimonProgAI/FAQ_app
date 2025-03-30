@@ -17,6 +17,11 @@ function RegisterForm(){
     const [errMsgPwordRepeat, setErrMsgPwordRepeat] = useState("");
     const [termsAndConditions, setTermsAndConditions] = useState(false);
     const [checkBoxColor, setCheckBoxColor] = useState({ color: 'black', fontSize: '16px' });
+
+    const errorMsg1 = "Username already exists.";
+    const errorMsg2 = "Invalid username.";
+    const errorMsg3 = "Invalid password. Enter a password that is at least 8 characters long and contains a number.";
+    const errorMsg4 = "The passwords do not match";
     
     function handleCheckedBox(e){ 
         console.log(e.target.checked);
@@ -32,16 +37,26 @@ function RegisterForm(){
         e.preventDefault();
 
         const uname = unameRef.current.value;
-        console.log(uname);
         const pword = pwordRef.current.value;
-        console.log(pword);
         const pwordRepeat = pwordRepeatRef.current.value;
-        console.log(pwordRepeat);
-    //ERR MESSAGES VARIABLES 
-        const errorMsg1 = "Username already exists.";
-        const errorMsg2 = "Invalid username.";
-        const errorMsg3 = "Invalid password. Enter a password that is at least 8 characters long and contains a number.";
-        const errorMsg4 = "The passwords do not match";
+
+        let userCreds = {};
+        userCreds.uname = uname;
+        userCreds.pword = pword;
+
+        console.log(userCreds);
+
+        let parameter = {
+            method: 'POST'
+        }
+
+        let url = `http://localhost:5000/${userCreds}`;
+
+        fetch(url, parameter)
+            .then(res => res.json())
+            .then(json => 
+                console.log(JSON.stringify(json)));
+
     //SUPPORTING FUNCTIONS
         function hasNumber(pword1){
             return /\d/.test(pword1);
@@ -71,7 +86,7 @@ function RegisterForm(){
 
         if(!termsAndConditions){
             setCheckBoxColor({ color: 'red', fontSize: '16px' });
-            console.log(checkBoxColor);
+            //console.log(checkBoxColor);
         };
     };
 

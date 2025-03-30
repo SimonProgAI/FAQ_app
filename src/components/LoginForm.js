@@ -1,22 +1,82 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Register from "../pages/Register";
+import { useState, useRef} from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import '../App.css';
 
 const LoginForm = () => {
+    const unameRef = useRef();
+    const pwordRef = useRef();
+    const [errMsgUname, setErrMsgUname] = useState("");
+    const [errMsgPword, setErrMsgPword] = useState("");
     
+    const navigate = useNavigate();
+    function handleLogin(e){
+        e.preventDefault();
+       
+        const uname = unameRef.current.value;
+        const pword = pwordRef.current.value;
+
+        const errMsg1 = "Enter a valid username.";
+        const errMsg2 = "Enter a valid password.";
+
+        let loginCreds = {};
+        loginCreds.uname = uname;
+        loginCreds.pword = pword;
+        //console.log(loginCreds);
+
+        let parameters = {
+            method: "GET"
+        }
+
+        let url = `http://localhost:5000/user/${loginCreds.uname}`;
+
+        fetch(url, parameters)
+            .then(res => res.json())
+            .then(json => {
+                console.log(json.user[0]);
+                if(json.user[0].pword === loginCreds.pword){
+                    navigate('/')
+                    console.log("password is correct");
+                }else{
+                    setErrMsgPword(errMsg2);
+                };
+            })
+            .catch(err=>{
+                console.log(err);
+                setErrMsgUname(errMsg1)
+            });
+        
+        if(uname.length === 0){
+            setErrMsgUname(errMsg1);
+        }else{
+            setErrMsgUname("");
+        };
+
+        if(pword.length === 0){
+            setErrMsgPword(errMsg2);
+        }else{
+            setErrMsgPword("");
+        };
+        
+        console.log('handleLogin called');
+        //console.log(`uname: ${uname}`);
+        //console.log(`pword: ${pword}`);
+    }
     return(
         <form className="loginForm">
             <label>
                 Username
-                <input type="text" placeholder="Username"/>
+                <input ref={unameRef} type="text" placeholder="Username"/>
+                <span className="errMsg">{errMsgUname}</span>
             </label>
             <label>
                 Password
-                <input type="password" placeholder="Password"></input>
+                <input ref={pwordRef} type="password" placeholder="Password"></input>
+                <span className="errMsg">{errMsgPword}</span>
             </label>
-            <Link to="/register" element={<Register />}>Register New User</Link>&nbsp;&nbsp;
+            <Link to="/register">Register New User</Link>&nbsp;&nbsp;
             <br/>
-            <button type="button">Login</button>
+            <button onClick={handleLogin}type="button">Login</button>
         </form>
     );
 }
