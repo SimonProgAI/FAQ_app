@@ -1,3 +1,40 @@
 .errMsg {
     color: red;
 }
+
+.dashboardContainer{
+    display: grid;
+    grid-template-areas: 
+      "dashboardHeader dashboardHeader" 
+      "questionsCol mainDisplay" 
+      "dashboardFooter dashboardFooter";
+    grid-template-columns: 1fr, 3fr;
+    border-style:solid;
+    border-color: red;
+  }
+  
+  .dashboardContainer > div.dashboardHeader { 
+    grid-area: dashboardHeader; 
+  }
+  
+  .dashboardContainer > div.questionsCol { 
+    grid-area: questionsCol; 
+  }
+  
+  .dashboardContainer > div.mainDisplay { 
+    grid-area: mainDisplay; 
+  }
+  
+  .dashboardContainer > div.dashboardFooter { 
+    grid-area: dashboardFooter; 
+  }
+  
+  .questionsCol{
+    border-style: dotted;
+    border-color: blue;
+  }
+  
+  .mainDisplay{
+    border-style:solid;
+    border-color: green;
+  }
