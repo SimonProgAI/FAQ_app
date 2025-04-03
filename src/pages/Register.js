@@ -1,18 +1,16 @@
 import React from "react";
-import {useState, useRef, useEffect} from "react";
+import {useState, useRef} from "react";
 import {useNavigate} from 'react-router-dom';
 import '../App.css';
 
 
 function Register(){
-    //Add a unameRef and check
-    //push uname and pword in mysql
-    //setUname, setPword  
+    const navigate = useNavigate();
     
     const unameRef = useRef();
     const pwordRef = useRef();
     const pwordRepeatRef = useRef();
-    const navigate = useNavigate();
+    
     
     const [errMsgUname, setErrMsgUname] = useState("");
     const [errMsgPword, setErrMsgPword] = useState("");
@@ -21,7 +19,7 @@ function Register(){
     const [checkBoxColor, setCheckBoxColor] = useState({ color: 'black', fontSize: '16px' });
     const [registerCriteria, setRegisterCriteria] = useState(false);
 
-    const errorMsg1 = "Username already exists.";
+    //const errorMsg1 = "Username already exists.";
     const errorMsg2 = "Invalid username.";
     const errorMsg3 = "Invalid password. Enter a password that is at least 8 characters long and contains a number.";
     const errorMsg4 = "The passwords do not match";

@@ -2,7 +2,6 @@ import { Outlet, Link } from "react-router-dom";
 import Register from "./Register.js";
 import Login from "./Login.js";
 import Logout from "./Logout.js";
-import NoPage from "./NoPage.js";
 
 const Layout = ({uname}) => {
     return(
@@ -22,7 +21,7 @@ const Layout = ({uname}) => {
                         <Link to="/register" element={<Register />}>Register</Link>&nbsp;&nbsp;
                     </li>
                     <li>
-                        Welcome {uname}.
+                        Welcome {uname}
                     </li>
                 </ul>
             </nav>

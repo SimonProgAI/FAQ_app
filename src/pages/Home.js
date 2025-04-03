@@ -5,37 +5,27 @@ import '../App.css';
 
 
 function Home({uname}){
-  //Can't access dashboard without successful login.
-  //Uname of the user logged in displayed in the menu.
-  //Logout logs you out & brings you back to Login
-  //Disapearing categories replaced with questions
-  //USE TWO BUTTONS FOR TRUE AND FALSE for setAreaSwitch - Find logical names for the justify the buttons
-  
-  //Chronological access of user generated questions.
-  
-   const [questionArea, setQuestionArea] = useState();
-   const [questionDisplay, setQuestionDisplay] = useState("");
-   const [answerDisplay, setAnswerDisplay] = useState("");
-   const [areaSwitch, setAreaSwitch] = useState(true);
-   const [category, setCategory] = useState('category_1');
    const [categoryArea, setCategoryArea] = useState ("");
-   const [categoryAreaArray, setCategoryAreaArray] = useState([
+   const [categoryAreaArray] = useState([
         {id: '1', name: 'category_1'},
         {id: '2', name: 'category_2'},
         {id: '3', name: 'category_3'},
         {id: '4', name: 'category_4'},
         {id: '5', name: 'category_5'}
    ]);
-   const [userQuestion, setUserQuestion] = useState("");
-   
+   const [questionArea, setQuestionArea] = useState();
+   const [questionDisplay, setQuestionDisplay] = useState("");
+   const [answerDisplay, setAnswerDisplay] = useState("");
+   const [category, setCategory] = useState('category_1');
    const userQuestionRef = useRef();
-
+   const navigate = useNavigate();
+   
    const handleQnSub = useCallback((e) =>{
         e.preventDefault();
         const userQuestion = userQuestionRef.current.value;
+       // console.log(`userQuestion: ${JSON.stringify(userQuestion)}`);
         
-       // setUserQuestion(questionText);
-        console.log(`userQuestion: ${JSON.stringify(userQuestion)}`);
+       let url = `http://localhost:5000/user/question`;
         let parameter = {
             method: 'POST',
             headers: {
@@ -43,16 +33,13 @@ function Home({uname}){
             },
             body: JSON.stringify({ question: userQuestion }),
             mode: 'cors'
-        }
+        };
         //console.log(parameter);
-
-        let url = `http://localhost:5000/user/question`;
-
         fetch(url, parameter)
             .then(res => res.json())
             .then(json => {console.log(json)})
             .catch(err => {console.log(err)})
-    }, [])
+    },[])
                
     useEffect(()=>{
         const categoryMap = categoryAreaArray
@@ -62,16 +49,15 @@ function Home({uname}){
                     e.preventDefault();
                     console.log(`Category_id: ${cat.id}, Category_name:${cat.name}`);
                     setCategory(cat.name);
-                    setAreaSwitch(false);
                }
                 return <div>
                             <button className="questionsCol" onClick={handleClickCat} key={cat.id}>{cat.name}</button>
                        </div>
             });
-        if(areaSwitch){ // to refactor
             setCategoryArea(categoryMap);
-            setQuestionArea("");
-        };
+    },[categoryAreaArray])
+
+    useEffect(()=>{
     
         let url = `http://localhost:5000/user/question/${category}`;
         console.log(url);
@@ -90,36 +76,28 @@ function Home({uname}){
                             setQuestionDisplay(element.question);
                             setAnswerDisplay(element.response);
                             console.log(`Question: ${element.question}, Response: ${element.response}`);
-                       }
-                      
+                        }
                         return <button className="questionsCol" key={element.question_id} onClick={handleClickQn} >
-                                 {element.question_id}.{element.question}
-                                </button>
-                       
+                                {element.question_id}.{element.question}
+                               </button>
                     });
-                if(areaSwitch){ // to refactor
-                    setQuestionArea("");
-                }else{
                     setQuestionArea(processedQnArr)
-                }
-                console.log(processedQnArr);
+                    console.log(processedQnArr);
             })
             .catch(err => {
                 console.log(err);
             }); 
-        },[category],[userQuestion]);
-
-        const navigate = useNavigate();
-        useEffect(() => {
-            if (!uname) {
-              console.log(`HOME: navigate( '/login')` );
-              navigate('/login'); // <-- redirect
-            }
-          }, [uname, navigate]);
+    }, [category])
+    
+    useEffect(() => {
+        if (!uname) {
+          console.log(`HOME: navigate( '/login')` );
+          navigate('/login');
+        }
+      }, [uname, navigate]);
 
     return(
         <section>
-            
             <div className="dashboardContainer">
                 <div className="dashboardHeader">
                     <h2>header</h2>
@@ -129,15 +107,13 @@ function Home({uname}){
                 <div className="mainDisplay">
                     <div className="questionDisplay">{questionDisplay}</div>
                     <div className="answerDisplay">{answerDisplay}</div>
-                    <button>Back to categories</button>
                 </div>
-                <div className="dashboardFooter">
+                <div className="userQuestion">
                     <form>
                         Can't find what you're looking for? Ask any question!
                         <input type="text" ref={userQuestionRef}></input>
                         <button onClick={handleQnSub}>Submit my question</button>
                     </form>
-                    <h2>Footer</h2>
                 </div>
 
             </div> 
