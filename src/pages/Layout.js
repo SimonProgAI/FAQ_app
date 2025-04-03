@@ -4,7 +4,7 @@ import Login from "./Login.js";
 import Logout from "./Logout.js";
 import NoPage from "./NoPage.js";
 
-const Layout = () => {
+const Layout = ({uname}) => {
     return(
         <>
             <nav className="navbar">
@@ -20,6 +20,9 @@ const Layout = () => {
                     </li>
                     <li>
                         <Link to="/register" element={<Register />}>Register</Link>&nbsp;&nbsp;
+                    </li>
+                    <li>
+                        Welcome {uname}.
                     </li>
                 </ul>
             </nav>

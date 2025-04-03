@@ -1,12 +1,149 @@
 import React from "react";
-import RegisterForm from "../components/RegisterForm.js";
+import {useState, useRef, useEffect} from "react";
+import {useNavigate} from 'react-router-dom';
+import '../App.css';
 
-const Register = () => {
+
+function Register(){
+    //Add a unameRef and check
+    //push uname and pword in mysql
+    //setUname, setPword  
+    
+    const unameRef = useRef();
+    const pwordRef = useRef();
+    const pwordRepeatRef = useRef();
+    const navigate = useNavigate();
+    
+    const [errMsgUname, setErrMsgUname] = useState("");
+    const [errMsgPword, setErrMsgPword] = useState("");
+    const [errMsgPwordRepeat, setErrMsgPwordRepeat] = useState("");
+    const [termsAndConditions, setTermsAndConditions] = useState(false);
+    const [checkBoxColor, setCheckBoxColor] = useState({ color: 'black', fontSize: '16px' });
+    const [registerCriteria, setRegisterCriteria] = useState(false);
+
+    const errorMsg1 = "Username already exists.";
+    const errorMsg2 = "Invalid username.";
+    const errorMsg3 = "Invalid password. Enter a password that is at least 8 characters long and contains a number.";
+    const errorMsg4 = "The passwords do not match";
+    
+    function handleCheckedBox(e){ 
+        console.log(e.target.checked);
+        setTermsAndConditions(e.target.checked);
+        if(termsAndConditions){
+            setCheckBoxColor({ color: 'black', fontSize: '16px' })
+        }else{
+            setCheckBoxColor({ color: 'green', fontSize: '16px' });
+        };
+    };
+
+    function handleRegister(e){
+        e.preventDefault();
+
+        const uname = unameRef.current.value;
+        const pword = pwordRef.current.value;
+        const pwordRepeat = pwordRepeatRef.current.value;
+
+        let userCreds = {};
+        userCreds.uname = uname;
+        userCreds.pword = pword;
+    //SUPPORTING FUNCTIONS
+        function hasNumber(pword1){
+            return /\d/.test(pword1);
+        };
+        function hasLetter(pword1){
+            return /[a-zA-Z]/.test(pword1);
+        };
+    //IFs
+        //IF uname already exist
+        
+        if(uname.length===0){
+            setErrMsgUname(errorMsg2);
+        };
+        if(pword.length<8 || !hasNumber(pword) || !hasLetter(pword)){
+            //console.log(errorMsg3);
+            setErrMsgPword(errorMsg3);
+        }else{
+            setErrMsgPword("");
+        };
+        if(pword !== pwordRepeat){
+            //console.log(errorMsg4);
+            setErrMsgPwordRepeat(errorMsg4);
+        }else{
+            setErrMsgPwordRepeat("");
+        };
+        if(!termsAndConditions){
+            setCheckBoxColor({ color: 'red', fontSize: '16px' });
+            //console.log(checkBoxColor);
+        };
+        if(pword.length>7 && hasNumber(pword) && hasLetter(pword) && pword === pwordRepeat){
+            setRegisterCriteria(true);
+        };
+        if(registerCriteria===true){
+            let parameter = {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify(userCreds)
+            }
+            console.log(parameter);
+    
+            let url = `http://localhost:5000/user`;
+            //console.log(JSON.stringify(userCreds));
+           
+            fetch(url, parameter)
+                .then(res => 
+                    res.json()
+                )
+                .then(json => {
+                    console.log(json);
+                    navigate('/login');
+                })
+                .catch(err =>{
+                    //console.log(err+"something something")
+                    /*
+                    if(err.message.code==="ER_DUP_ENTRY"){
+                        setErrMsgUname(errorMsg1);
+                        setRegisterCriteria(false);
+                    }else{
+                        console.error(err);
+                    }
+                    */    
+                });
+        };
+    };
+
+    //Navigate to login
+    //Navigate to dashboar
     return(
         <div>
-            <RegisterForm />
+            <h1>Register User</h1>
+            <form className="loginForm">
+                <label>
+                    Username
+                    <input ref={unameRef}type="text" placeholder="Username"/>
+                    <span className="errMsg">{errMsgUname}</span>
+                </label>
+                <label>
+                    Password
+                    <input ref={pwordRef} type="password" placeholder="Password"></input>
+                    <span className="errMsg">{errMsgPword}</span>
+                </label>
+                <label>
+                    Repeat Password
+                    <input ref={pwordRepeatRef} type="password" placeholder="Password"></input>
+                    <span className="errMsg">{errMsgPwordRepeat}</span>
+                </label>
+                <br/>
+                <label style={checkBoxColor}>
+                    <input type="checkbox" defaultChecked={termsAndConditions} onChange={handleCheckedBox}/>
+                    I accept the terms and conditions.
+                </label>
+                <br/>
+                <button onClick={handleRegister}>Register User</button>
+            </form>
         </div>
-    )
-}
+    );
+};
 
 export default Register;
