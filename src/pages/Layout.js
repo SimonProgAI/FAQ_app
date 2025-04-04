@@ -4,6 +4,13 @@ import Login from "./Login.js";
 import Logout from "./Logout.js";
 
 const Layout = ({uname}) => {
+    
+    const welcome= ()=>{
+        if(uname){
+            return <span>Welcome {uname}!</span>
+        }
+    }
+
     return(
         <>
             <nav className="navbar">
@@ -20,9 +27,7 @@ const Layout = ({uname}) => {
                     <li>
                         <Link to="/register" element={<Register />}>Register</Link>&nbsp;&nbsp;
                     </li>
-                    <li>
-                        Welcome {uname}
-                    </li>
+                    <div id="welcomeMsg">{welcome()}</div>
                 </ul>
             </nav>
             <Outlet />

@@ -25,7 +25,7 @@ function Register(){
     const errorMsg4 = "The passwords do not match";
     
     function handleCheckedBox(e){ 
-        console.log(e.target.checked);
+        //console.log(e.target.checked);
         setTermsAndConditions(e.target.checked);
         if(termsAndConditions){
             setCheckBoxColor({ color: 'black', fontSize: '16px' })
@@ -52,8 +52,6 @@ function Register(){
             return /[a-zA-Z]/.test(pword1);
         };
     //IFs
-        //IF uname already exist
-        
         if(uname.length===0){
             setErrMsgUname(errorMsg2);
         };
@@ -111,22 +109,22 @@ function Register(){
         };
     };
 
-    //Navigate to login
-    //Navigate to dashboar
     return(
         <div>
-            <h1>Register User</h1>
-            <form className="loginForm">
+            <form>
+                <h1>Register User</h1>
                 <label>
                     Username
                     <input ref={unameRef}type="text" placeholder="Username"/>
                     <span className="errMsg">{errMsgUname}</span>
                 </label>
+                <br/>
                 <label>
                     Password
                     <input ref={pwordRef} type="password" placeholder="Password"></input>
                     <span className="errMsg">{errMsgPword}</span>
                 </label>
+                <br/>
                 <label>
                     Repeat Password
                     <input ref={pwordRepeatRef} type="password" placeholder="Password"></input>

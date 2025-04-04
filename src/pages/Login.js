@@ -3,7 +3,7 @@ import { useState, useRef} from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import '../App.css';
 
-const Login = ({uname, unameSetter}) => {
+const Login = ({unameSetter}) => {
     const unameRef = useRef();
     const pwordRef = useRef();
     const [errMsgUname, setErrMsgUname] = useState("");
@@ -35,19 +35,19 @@ const Login = ({uname, unameSetter}) => {
         fetch(url, parameters)
             .then(res => res.json())
             .then(json => {
-                console.log(json.user[0]);
+                //console.log(json.user[0]);
                 if(json.user[0].pword === loginCreds.pword){
                     console.log("password is correct");
                     unameSetter(json.user[0].uname);
-                    console.log(json.user[0].uname);
-                    console.log(`JSON returned from the server: ${json} `);
+                    //console.log(json.user[0].uname);
+                    //console.log(`JSON returned from the server: ${json} `);
                     navigate('/');
                 }else{
                     setErrMsgPword(errMsg2);
                 };
             })
             .catch(err=>{
-                console.log(err);
+                //console.log(err);
                 setErrMsgUname(errMsg1)
             });
         
@@ -62,24 +62,26 @@ const Login = ({uname, unameSetter}) => {
         }else{
             setErrMsgPword("");
         };
-        
-        console.log('handleLogin called');
+        //console.log('handleLogin called');
         //console.log(`uname: ${uname}`);
         //console.log(`pword: ${pword}`);
     }
 
     return(
-        <form className="loginForm">
+        <form>
+            <h1>Login</h1>
             <label>
                 Username
                 <input ref={unameRef} type="text" placeholder="Username"/>
                 <span className="errMsg">{errMsgUname}</span>
             </label>
+            <br/>
             <label>
                 Password
                 <input ref={pwordRef} type="password" placeholder="Password"></input>
                 <span className="errMsg">{errMsgPword}</span>
             </label>
+            <br/>
             <Link to="/register">Register New User</Link>&nbsp;&nbsp;
             <br/>
             <button onClick={handleLogin}type="button">Login</button>

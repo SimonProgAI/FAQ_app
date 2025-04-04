@@ -18,6 +18,7 @@ function Home({uname}){
    const [answerDisplay, setAnswerDisplay] = useState("");
    const [category, setCategory] = useState('category_1');
    const userQuestionRef = useRef();
+   
    const navigate = useNavigate();
    
    const handleQnSub = useCallback((e) =>{
@@ -51,7 +52,7 @@ function Home({uname}){
                     setCategory(cat.name);
                }
                 return <div>
-                            <button className="questionsCol" onClick={handleClickCat} key={cat.id}>{cat.name}</button>
+                            <button className="catRow" onClick={handleClickCat} key={cat.id}>{cat.name}</button>
                        </div>
             });
             setCategoryArea(categoryMap);
@@ -77,7 +78,7 @@ function Home({uname}){
                             setAnswerDisplay(element.response);
                             console.log(`Question: ${element.question}, Response: ${element.response}`);
                         }
-                        return <button className="questionsCol" key={element.question_id} onClick={handleClickQn} >
+                        return <button className="qnCol" key={element.question_id} onClick={handleClickQn} >
                                 {element.question_id}.{element.question}
                                </button>
                     });
@@ -100,15 +101,16 @@ function Home({uname}){
         <section>
             <div className="dashboardContainer">
                 <div className="dashboardHeader">
-                    <h2>header</h2>
+                    <h1>Q&A</h1>
+                    <h2>Find the information you're looking for here</h2>
                 </div>
-                <div>{categoryArea}</div>
-                <div>{questionArea}</div>
+                <div className="catBox">{categoryArea}</div>
+                <div className="qnBox">{questionArea}</div>
                 <div className="mainDisplay">
-                    <div className="questionDisplay">{questionDisplay}</div>
-                    <div className="answerDisplay">{answerDisplay}</div>
+                    <div className="qnDisplay">{questionDisplay}</div>
+                    <div className="ansDisplay">{answerDisplay}</div>
                 </div>
-                <div className="userQuestion">
+                <div className="userQn">
                     <form>
                         Can't find what you're looking for? Ask any question!
                         <input type="text" ref={userQuestionRef}></input>
