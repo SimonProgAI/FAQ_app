@@ -8,9 +8,8 @@ const Login = ({uname, unameSetter}) => {
     const pwordRef = useRef();
     const [errMsgCred, setErrMsgCred] = useState("");
    
-    
     const navigate = useNavigate();
-    
+
     function handleLogin(e){
         
         e.preventDefault();

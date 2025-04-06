@@ -23,7 +23,7 @@ function App(){
       <Routes>
         <Route>
             <Route path="/" element={<Layout uname={uname}/>}>
-              <Route index element={<Home uname={uname}/>}/>
+              <Route index element={<Home uname={uname} unameSetter={unameSetter}/>}/>
               <Route path='register' element={<Register />}/>
               <Route path="logout" element={<Logout uname={uname} handleLogout={handleLogout} />} />
               <Route path="login" element={<Login uname={uname} unameSetter={unameSetter}/>} />

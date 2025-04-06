@@ -3,7 +3,8 @@ import React from "react";
 import {useState, useEffect, useRef, useCallback} from 'react';
 import { useNavigate } from "react-router-dom";
 
-function Home({uname}){
+function Home({uname, unameSetter}){
+
    const [categoryArea, setCategoryArea] = useState ("");
    const [categoryAreaArray] = useState([
         {id: '1', name: 'category_1'},
@@ -16,6 +17,7 @@ function Home({uname}){
    const [questionDisplay, setQuestionDisplay] = useState("");
    const [answerDisplay, setAnswerDisplay] = useState("");
    const [category, setCategory] = useState('category_1');
+   
    const userQuestionRef = useRef();
    
    const navigate = useNavigate();
@@ -96,6 +98,18 @@ function Home({uname}){
           navigate('/login');
         }
       }, [uname, navigate]);
+    
+    useEffect(()=>{
+        if(uname){
+            sessionStorage.setItem('uname', uname);
+        }
+    }, [uname]);
+
+    useEffect(()=>{
+        const storedUname = sessionStorage.getItem('uname');
+        console.log(storedUname);
+        unameSetter(storedUname);
+    },[unameSetter])
 
     return(
         <section>
