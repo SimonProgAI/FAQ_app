@@ -81,7 +81,7 @@ function Home({uname, unameSetter}){
                             console.log(`Question: ${element.question}, Response: ${element.response}`);
                         }
                         return <button className="qnCol" key={element.question_id} onClick={handleClickQn} >
-                                {element.question_id}.{element.question}
+                                {element.question}
                                </button>
                     });
                     setQuestionArea(processedQnArr)
@@ -121,8 +121,8 @@ function Home({uname, unameSetter}){
                 <div className="catBox">{categoryArea}</div>
                 <div className="qnBox">{questionArea}</div>
                 <div className="mainDisplay">
-                    <div className="qnDisplay">{questionDisplay}</div>
-                    <div className="ansDisplay">{answerDisplay}</div>
+                    <div className="qnDisplay">Q: {questionDisplay}</div>
+                    <div className="ansDisplay">A: {answerDisplay}</div>
                 </div>
                 <div className="userQn">
                     <form>
