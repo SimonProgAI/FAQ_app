@@ -94,22 +94,33 @@ function Home({uname, unameSetter}){
     
     useEffect(() => {
         if (!uname) {
-          console.log(`HOME: navigate( '/login')` );
+          //console.log(`HOME: navigate( '/login')` );
           navigate('/login');
         }
       }, [uname, navigate]);
     
     useEffect(()=>{
         if(uname){
+            
             sessionStorage.setItem('uname', uname);
+            const storedItem = sessionStorage.setItem('uname', uname);
+            console.log(`sessionStorage: ${storedItem}`);
         }
     }, [uname]);
 
     useEffect(()=>{
         const storedUname = sessionStorage.getItem('uname');
-        console.log(storedUname);
+        console.log(`storedUname: ${storedUname}`);
         unameSetter(storedUname);
-    },[unameSetter])
+    },[unameSetter]);
+   
+    useEffect(()=>{
+        const handleTabClose = () =>{
+            unameSetter("")
+        }
+        window.addEventListener('beforeunload', handleTabClose);
+    },[unameSetter]);
+    
 
     return(
         <section>
