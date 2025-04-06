@@ -1,8 +1,7 @@
+import '../App.css';
 import React from "react";
 import {useState, useRef} from "react";
 import {useNavigate} from 'react-router-dom';
-import '../App.css';
-
 
 function Register(){
     const navigate = useNavigate();
