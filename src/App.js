@@ -16,6 +16,7 @@ function App(){
 
   const handleLogout = () => {
       unameSetter(null);
+      sessionStorage.clear();
   }
 
   return(

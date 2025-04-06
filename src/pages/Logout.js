@@ -9,7 +9,7 @@ const Logout = ({uname, handleLogout}) => {
     console.log(`User ${uname} logged out`)
     useEffect(()=>{
         if (uname === null){
-            navigate(navigate('/login'))
+            navigate('/login');
         }
     }, [uname, navigate])
     
