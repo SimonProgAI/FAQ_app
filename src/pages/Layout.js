@@ -1,15 +1,21 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import Register from "./Register.js";
 import Login from "./Login.js";
 import Logout from "./Logout.js";
 
 const Layout = ({uname}) => {
-    
+    const navigate = useNavigate();
     const welcome= ()=>{
         if(uname){
             return <span>Welcome {uname}!</span>
         }
     }
+
+    const limitLogins = ({uname}) => {
+        if (uname){
+            navigate('/');
+        }
+    };
 
     return(
         <>
@@ -19,7 +25,7 @@ const Layout = ({uname}) => {
                         <Link to="/">Home</Link>&nbsp;&nbsp;
                     </li>
                     <li>
-                        <Link to="/login" element={<Login />}>Login</Link>&nbsp;&nbsp;
+                        <Link to="/login" element={<Login />} onClick={limitLogins}>Login</Link>&nbsp;&nbsp;
                     </li>
                     <li>
                         <Link to="/logout" element={<Logout />}>Logout</Link>&nbsp;&nbsp;

@@ -1,8 +1,7 @@
+import '../App.css';
 import React from "react";
 import {useState, useEffect, useRef, useCallback} from 'react';
 import { useNavigate } from "react-router-dom";
-import '../App.css';
-
 
 function Home({uname}){
    const [categoryArea, setCategoryArea] = useState ("");
@@ -36,6 +35,7 @@ function Home({uname}){
             mode: 'cors'
         };
         //console.log(parameter);
+        //Try/Catch
         fetch(url, parameter)
             .then(res => res.json())
             .then(json => {console.log(json)})
@@ -59,7 +59,7 @@ function Home({uname}){
     },[categoryAreaArray])
 
     useEffect(()=>{
-    
+    //inside a fat arrow function
         let url = `http://localhost:5000/user/question/${category}`;
         console.log(url);
         let parameter = {

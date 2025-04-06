@@ -19,7 +19,7 @@ TECHNOLOGIES USED:
 USER STORIES
     -As a user, I want to find answers to commonly asked questions.
     -As a user, I want to ask questions to which I cannot find a satisfying answer.
-    -As a user, I want to resgister and use the website.
+    -As a user, I want to register and use the website.
 
 OVERVIEW OF THE PROJECT:
     The project is structured like a Q&A page with frequently asked questions grouped in categories, 
@@ -31,5 +31,10 @@ IDEAS FOR FUTURE IMPROVEMENTS:
     The category menu can be swapped for the question list.
     Include a user profile.
     Build the page around a theme and have pictures and video elements associated with some of the questions.
+
+
+
+//Use Effect functions should be refactored into const fat arrow functions
+
     
 

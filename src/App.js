@@ -10,7 +10,7 @@ import NoPage from './pages/NoPage';
 
 import './App.css';
 
-function App() {
+function App(){ 
 
   const [uname, unameSetter] = useState(null);
 
@@ -26,7 +26,7 @@ function App() {
               <Route index element={<Home uname={uname}/>}/>
               <Route path='register' element={<Register />}/>
               <Route path="logout" element={<Logout uname={uname} handleLogout={handleLogout} />} />
-              <Route path="login" element={<Login unameSetter={unameSetter}/>} />
+              <Route path="login" element={<Login uname={uname} unameSetter={unameSetter}/>} />
               <Route path="*" element={<NoPage />} />
             </Route>
         </Route>

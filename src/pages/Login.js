@@ -1,13 +1,13 @@
 import React from "react";
-import { useState, useRef} from 'react';
+import { useState, useRef, useEffect} from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import '../App.css';
 
-const Login = ({unameSetter}) => {
+const Login = ({uname, unameSetter}) => {
     const unameRef = useRef();
     const pwordRef = useRef();
-    const [errMsgUname, setErrMsgUname] = useState("");
-    const [errMsgPword, setErrMsgPword] = useState("");
+    const [errMsgCred, setErrMsgCred] = useState("");
+   
     
     const navigate = useNavigate();
     
@@ -18,8 +18,8 @@ const Login = ({unameSetter}) => {
         const uname = unameRef.current.value;
         const pword = pwordRef.current.value;
 
-        const errMsg1 = "Enter a valid username.";
-        const errMsg2 = "Enter a valid password.";
+        const errMsg = "Enter valid login credentials.";
+       
 
         let loginCreds = {};
         loginCreds.uname = uname;
@@ -43,29 +43,36 @@ const Login = ({unameSetter}) => {
                     //console.log(`JSON returned from the server: ${json} `);
                     navigate('/');
                 }else{
-                    setErrMsgPword(errMsg2);
+                    setErrMsgCred(errMsg);
                 };
             })
             .catch(err=>{
                 //console.log(err);
-                setErrMsgUname(errMsg1)
+                setErrMsgCred(errMsg)
             });
         
         if(uname.length === 0){
-            setErrMsgUname(errMsg1);
+            setErrMsgCred(errMsg);
         }else{
-            setErrMsgUname("");
+            setErrMsgCred("");
         };
 
         if(pword.length === 0){
-            setErrMsgPword(errMsg2);
+            setErrMsgCred(errMsg);
         }else{
-            setErrMsgPword("");
+            setErrMsgCred("");
         };
         //console.log('handleLogin called');
         //console.log(`uname: ${uname}`);
         //console.log(`pword: ${pword}`);
     }
+
+    useEffect(()=>{
+        if (uname){
+        navigate('/');
+    };
+    },[uname, navigate]);
+    
 
     return(
         <form>
@@ -73,13 +80,13 @@ const Login = ({unameSetter}) => {
             <label>
                 Username
                 <input ref={unameRef} type="text" placeholder="Username"/>
-                <span className="errMsg">{errMsgUname}</span>
+                <span className="errMsg">{errMsgCred}</span>
             </label>
             <br/>
             <label>
                 Password
                 <input ref={pwordRef} type="password" placeholder="Password"></input>
-                <span className="errMsg">{errMsgPword}</span>
+                <span className="errMsg">{errMsgCred}</span>
             </label>
             <br/>
             <Link to="/register">Register New User</Link>&nbsp;&nbsp;
