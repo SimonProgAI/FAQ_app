@@ -20,8 +20,8 @@ function Register(){
 
     //const errorMsg1 = "Username already exists.";
     const errorMsg2 = "Invalid username.";
-    const errorMsg3 = "Invalid password. Enter a password that is at least 8 characters long and contains a number.";
-    const errorMsg4 = "The passwords do not match";
+    const errorMsg3 = "Password must contain at least 8 characters and a digit.";
+    const errorMsg4 = "The passwords do not match.";
     
     function handleCheckedBox(e){ 
         //console.log(e.target.checked);
