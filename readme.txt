@@ -33,8 +33,5 @@ IDEAS FOR FUTURE IMPROVEMENTS:
     Build the page around a theme and have pictures and video elements associated with some of the questions.
 
 
-
-//Use Effect functions should be refactored into const fat arrow functions
-
     
 
