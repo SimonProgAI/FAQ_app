@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState} from 'react';
-import { BrowserRouter,Routes, Route } from 'react-router-dom';
+import { HashRouter,Routes, Route } from 'react-router-dom';
 import Layout from './pages/Layout';
 import Home from './pages/Home';
 import Register from './pages/Register';
@@ -20,7 +20,7 @@ function App(){
   }
 
   return(
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route>
             <Route path="/" element={<Layout uname={uname}/>}>
@@ -32,7 +32,7 @@ function App(){
             </Route>
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
