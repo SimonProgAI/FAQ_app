@@ -1,7 +1,7 @@
 {
   "name": "client_project4",
   "version": "0.1.0",
-  "homepage": "https://simonprogai.github.io/Project_4_Simon_Lupien",
+  "homepage": "https://simonprogai.github.io/FAQ_app/",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
