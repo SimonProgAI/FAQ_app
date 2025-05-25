@@ -36,6 +36,7 @@ const Login = ({uname, unameSetter}) => {
         
         /*let url = `http://localhost:5000/user/${loginCreds.uname}`;*/
         let url = `https://server-faq-app.onrender.com/user/${loginCreds.uname}`;
+        console.log(url);
 
         fetch(url, parameters)
             .then(res => res.json())
