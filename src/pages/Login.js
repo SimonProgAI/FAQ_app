@@ -14,10 +14,21 @@ const Login = ({uname, unameSetter}) => {
         
         e.preventDefault();
        
-        const uname = unameRef.current.value;
-        const pword = pwordRef.current.value;
+        const uname = unameRef.current.value.trim();
+        const pword = pwordRef.current.value.trim();
 
         const errMsg = "Enter valid login credentials.";
+        if(uname.length === 0 || pword.length === 0){
+            setErrMsgCred(errMsg);
+        }/*else{
+            setErrMsgCred("");
+        };
+
+        if(pword.length === 0){
+            setErrMsgCred(errMsg);
+        }else{
+            setErrMsgCred("");
+        };*/
        
 
         let loginCreds = {};
@@ -51,17 +62,7 @@ const Login = ({uname, unameSetter}) => {
                 setErrMsgCred(errMsg)
             });
         
-        if(uname.length === 0){
-            setErrMsgCred(errMsg);
-        }else{
-            setErrMsgCred("");
-        };
-
-        if(pword.length === 0){
-            setErrMsgCred(errMsg);
-        }else{
-            setErrMsgCred("");
-        };
+        
         //console.log('handleLogin called');
         //console.log(`uname: ${uname}`);
         //console.log(`pword: ${pword}`);
