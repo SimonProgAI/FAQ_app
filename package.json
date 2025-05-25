@@ -18,10 +18,10 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "build": "PUBLIC_URL=/FAQ_app/ react-scripts build",
+    "build": "set PUBLIC_URL=/FAQ_app/ && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
+},
   "eslintConfig": {
     "extends": [
       "react-app",
