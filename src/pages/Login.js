@@ -42,9 +42,9 @@ const Login = ({uname, unameSetter}) => {
             .then(res => res.json())
             .then(json => {
                 //console.log(json.user[0]);
-                if(json.user[0].pword === loginCreds.pword){
+                if(json.data[0].pword === loginCreds.pword){
                     console.log("password is correct");
-                    unameSetter(json.user[0].uname);
+                    unameSetter(json.data[0].uname);
                     //console.log(json.user[0].uname);
                     //console.log(`JSON returned from the server: ${json} `);
                     navigate('/');
