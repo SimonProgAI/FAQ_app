@@ -20,6 +20,7 @@ const Login = ({uname, unameSetter}) => {
         const errMsg = "Enter valid login credentials.";
         if(uname.length === 0 || pword.length === 0){
             setErrMsgCred(errMsg);
+            return;
         }/*else{
             setErrMsgCred("");
         };
