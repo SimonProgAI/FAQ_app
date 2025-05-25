@@ -23,15 +23,8 @@ const Login = ({uname, unameSetter}) => {
             return;
         }/*else{
             setErrMsgCred("");
-        };
-
-        if(pword.length === 0){
-            setErrMsgCred(errMsg);
-        }else{
-            setErrMsgCred("");
         };*/
        
-
         let loginCreds = {};
         loginCreds.uname = uname;
         loginCreds.pword = pword;
@@ -48,9 +41,9 @@ const Login = ({uname, unameSetter}) => {
             .then(res => res.json())
             .then(json => {
                 //console.log(json.user[0]);
-                if(json.user[0].pword === loginCreds.pword){
+                if(json.user[0][0].pword === loginCreds.pword){
                     console.log("password is correct");
-                    unameSetter(json.user[0].uname);
+                    unameSetter(json.user[0][0].uname);
                     //console.log(json.user[0].uname);
                     //console.log(`JSON returned from the server: ${json} `);
                     navigate('/');
