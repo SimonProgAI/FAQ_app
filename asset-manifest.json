@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/FAQ_app/static/css/main.d281093e.css",
-    "main.js": "/FAQ_app/static/js/main.9b7a5fe5.js",
+    "main.js": "/FAQ_app/static/js/main.3d1022c9.js",
     "static/js/453.7dd452b8.chunk.js": "/FAQ_app/static/js/453.7dd452b8.chunk.js",
     "index.html": "/FAQ_app/index.html",
     "main.d281093e.css.map": "/FAQ_app/static/css/main.d281093e.css.map",
-    "main.9b7a5fe5.js.map": "/FAQ_app/static/js/main.9b7a5fe5.js.map",
+    "main.3d1022c9.js.map": "/FAQ_app/static/js/main.3d1022c9.js.map",
     "453.7dd452b8.chunk.js.map": "/FAQ_app/static/js/453.7dd452b8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d281093e.css",
-    "static/js/main.9b7a5fe5.js"
+    "static/js/main.3d1022c9.js"
   ]
 }
