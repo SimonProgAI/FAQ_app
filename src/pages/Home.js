@@ -28,7 +28,7 @@ function Home({uname, unameSetter}){
        // console.log(`userQuestion: ${JSON.stringify(userQuestion)}`);
         
         /*let url = `http://localhost:5000/user/question`;*/
-        let url = `https://server-faq-app.onrender.com/user/question`;
+        let url = `https://server-faq-app.onrender.com/user/question`; 
         let parameter = {
             method: 'POST',
             headers: {
