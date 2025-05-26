@@ -83,7 +83,8 @@ function Register(){
             }
             console.log(parameter);
     
-            let url = `http://localhost:5000/user`;
+            /*let url = `http://localhost:5000/user`;*/
+            let url = `https://server-faq-app.onrender.com/user`
             //console.log(JSON.stringify(userCreds));
            
             fetch(url, parameter)
