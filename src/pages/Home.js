@@ -27,7 +27,8 @@ function Home({uname, unameSetter}){
         const userQuestion = userQuestionRef.current.value;
        // console.log(`userQuestion: ${JSON.stringify(userQuestion)}`);
         
-       let url = `http://localhost:5000/user/question`;
+        /*let url = `http://localhost:5000/user/question`;*/
+        let url = `https://server-faq-app.onrender.com/user/question`;
         let parameter = {
             method: 'POST',
             headers: {
@@ -62,7 +63,8 @@ function Home({uname, unameSetter}){
 
     useEffect(()=>{
     //inside a fat arrow function
-        let url = `http://localhost:5000/user/question/${category}`;
+        /*let url = `http://localhost:5000/user/question/${category}`;*/
+         let url = `https://server-faq-app.onrender.com/user/question/${category}`;
         console.log(url);
         let parameter = {
             method: 'GET'
