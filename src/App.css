@@ -1,153 +1,151 @@
 /*GENERAL*/
-  body {
-      background-color:rgb(255, 255, 255);
-  }
-  h1,h2,h3 {
-      text-align: center;
-      margin-top: 0.1rem;
-      font-size:x-large;
-  }
-  
-  label {
-      transform: scale(1.2);
-      margin:0.5rem;
-      padding: 0.3rem;
-      font-size:1.5rem;
-  }
-  
-  button {
-      transform: scale(1);
-      margin:0.5rem;
-      padding: 0.3rem;
-      font-size:1.2rem;
-  }
-  
-  input[type="checkbox"] {
-      transform: scale(2);
-      margin:1rem;
-      padding: 0.4rem;
-  }
-  
-  input[type="text"], 
-  input[type="password"]
-  {
-      transform: scale(1);
-      margin:0.4rem;
-      padding: 0.4rem;
-  }
+body {
+  background-color: rgb(255, 255, 255);
+}
+h1,
+h2,
+h3 {
+  text-align: center;
+  margin-top: 0.1rem;
+  font-size: x-large;
+}
+
+label {
+  transform: scale(1.2);
+  margin: 0.5rem;
+  padding: 0.3rem;
+  font-size: 1.5rem;
+}
+
+button {
+  transform: scale(1);
+  margin: 0.5rem;
+  padding: 0.3rem;
+  font-size: 1.2rem;
+}
+
+input[type="checkbox"] {
+  transform: scale(2);
+  margin: 1rem;
+  padding: 0.4rem;
+}
+
+input[type="text"],
+input[type="password"] {
+  transform: scale(1);
+  margin: 0.4rem;
+  padding: 0.4rem;
+}
 /*LAYOUT NAVBAR*/
-  ul {
-    list-style-type: none;
-    margin: 0 ;
-    padding: 0.7rem;
-    background-color: #333333;
-    display: flex;
-    align-items: center;
-  }
-  #welcomeMsg{
-    margin: auto;
-  }
-  li > a, #welcomeMsg { 
-    color: white;
-    padding: 1rem;
-    text-decoration: none;
-  }
-  li a:hover {
-    background-color: black;
-  }
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0.7rem;
+  background-color: #333333;
+  display: flex;
+  align-items: center;
+}
+#welcomeMsg {
+  margin: auto;
+}
+li > a,
+#welcomeMsg {
+  color: white;
+  padding: 1rem;
+  text-decoration: none;
+}
+li a:hover {
+  background-color: black;
+}
 /*LOGIN & REGISTER */
-  .errMsg {
-      color: red;
-      font-size: small;
-  }
-  form {
-    margin-top: none;
-    margin-left: 3rem;
-  }
+.errMsg {
+  color: red;
+  font-size: small;
+}
+form {
+  margin-top: none;
+  margin-left: 3rem;
+}
 
 /*DASHBOARD*/
+.dashboardContainer {
+  display: grid;
+  grid-template-areas:
+    "dashboardHeader"
+    "catBox"
+    "userQn"
+    "qnBox"
+    "mainDisplay";
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 8px;
+}
+
+/* Desktop mode */
+@media (min-width: 768px) {
   .dashboardContainer {
-    display: grid;
-    grid-template-areas: 
-      "dashboardHeader" 
-      "catBox"
-      "userQn"
-      "qnBox"
-      "mainDisplay";
-    grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 8px;
+    grid-template-areas:
+      "dashboardHeader dashboardHeader"
+      "catBox catBox"
+      "userQn userQn"
+      "qnBox mainDisplay";
+    grid-template-columns: 1fr 3fr;
   }
+}
+/* Mobile Mode*/
+.dashboardContainer > div.qnBox {
+  grid-area: qnBox;
+  border: 1px solid blue;
+  overflow-y: visible;
+  min-height: 200px;
+  margin-bottom: 1rem;
+}
+.dashboardContainer > div.dashboardHeader {
+  grid-area: dashboardHeader;
+}
 
-  /* Desktop mode */
-  @media (min-width: 768px) {
-    .dashboardContainer {
-      grid-template-areas: 
-        "dashboardHeader dashboardHeader" 
-        "catBox catBox" 
-        "userQn userQn"
-        "qnBox mainDisplay";
-      grid-template-columns: 1fr 3fr;
-    }
-  }
-  /* Mobile Mode*/
-  .dashboardContainer > div.qnBox { 
-    grid-area: qnBox;
-    border: 1px solid blue;
-    overflow-y: visible;
-    min-height: 200px;   
-    margin-bottom: 1rem; 
-  }
-  .dashboardContainer > div.dashboardHeader { 
-    grid-area: dashboardHeader; 
-  }
+.dashboardContainer > div.catBox {
+  grid-area: catBox;
 
-  .dashboardContainer > div.catBox { 
-    grid-area: catBox; 
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem;
+  overflow-x: scroll;
+}
 
-    display: flex;               
-    gap: 1rem;                 
-    padding: 0.5rem;             
-    overflow-x: scroll;                     
-  }
+.dashboardContainer > div.qnBox {
+  grid-area: qnBox;
+  border: 1px solid blue;
+  overflow-y: auto;
+}
 
-  .dashboardContainer > div.qnBox { 
-    grid-area: qnBox;
-    border: 1px solid blue;
-    overflow-y: auto;
-    
-  }
+.dashboardContainer > div.mainDisplay {
+  grid-area: mainDisplay;
+  border: 1px solid green;
+}
 
-  .dashboardContainer > div.mainDisplay { 
-    grid-area: mainDisplay;
-    border: 1px solid green;
-  }
+.dashboardContainer > div.userQn {
+  grid-area: userQn;
+  border: 1px solid black;
+  align-items: center;
+}
 
-  .dashboardContainer > div.userQn { 
-    grid-area: userQn;
-    border: 1px solid black;
-    align-items: center;
-  }
-  
-  .qnCol{
-    border-style: solid;
-  }
-  
-  .mainDisplay{
-    border-style:solid;
-    border-color: green;
-    text-align: center;
-    
-  }
+.qnCol {
+  border-style: solid;
+}
 
-  .qnDisplay, .ansDisplay {
-    font-size: large;
-    margin: 1rem;
-  }
+.mainDisplay {
+  border-style: solid;
+  border-color: green;
+  text-align: center;
+}
 
-  .ansDisplay{
-    font-weight: bolder;
-  }
+.qnDisplay,
+.ansDisplay {
+  font-size: large;
+  margin: 1rem;
+}
 
-  
-
+.ansDisplay {
+  font-weight: bolder;
+}

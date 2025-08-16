@@ -1,95 +1,94 @@
-import '../App.css';
+import "../App.css";
 import React from "react";
-import { useState, useRef, useEffect} from 'react';
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = ({uname, unameSetter}) => {
-    const unameRef = useRef();
-    const pwordRef = useRef();
-    const [errMsgCred, setErrMsgCred] = useState("");
-   
-    const navigate = useNavigate();
+const Login = ({ uname, unameSetter }) => {
+  const unameRef = useRef();
+  const pwordRef = useRef();
+  const [errMsgCred, setErrMsgCred] = useState("");
 
-    function handleLogin(e){
-        
-        e.preventDefault();
-       
-        const uname = unameRef.current.value.trim();
-        const pword = pwordRef.current.value.trim();
+  const navigate = useNavigate();
 
-        const errMsg = "Enter valid login credentials.";
-        if(uname.length === 0 || pword.length === 0){
-            setErrMsgCred(errMsg);
-            return;
-        }/*else{
+  function handleLogin(e) {
+    e.preventDefault();
+
+    const uname = unameRef.current.value.trim();
+    const pword = pwordRef.current.value.trim();
+
+    const errMsg = "Enter valid login credentials.";
+    if (uname.length === 0 || pword.length === 0) {
+      setErrMsgCred(errMsg);
+      return;
+    } /*else{
             setErrMsgCred("");
         };*/
-       
-        let loginCreds = {};
-        loginCreds.uname = uname;
-        loginCreds.pword = pword;
-        //console.log(loginCreds);
 
-        let parameters = {
-            method: "GET"
-        }
-        
-        /*let url = `http://localhost:5000/user/${loginCreds.uname}`;*/
-        let url = `https://server-faq-app.onrender.com/user/${loginCreds.uname}`;
-        console.log(url);
+    let loginCreds = {};
+    loginCreds.uname = uname;
+    loginCreds.pword = pword;
+    //console.log(loginCreds);
 
-        fetch(url, parameters)
-            .then(res => res.json())
-            .then(json => {
-                //console.log(json.user[0]);
-                if(json.user[0].pword === loginCreds.pword){
-                    console.log("password is correct");
-                    unameSetter(json.user[0].uname);
-                    //console.log(json.user[0].uname);
-                    //console.log(`JSON returned from the server: ${json} `);
-                    navigate('/');
-                }else{
-                    setErrMsgCred(errMsg);
-                };
-            })
-            .catch(err=>{
-                //console.log(err);
-                setErrMsgCred(errMsg)
-            });
-        
-        
-        //console.log('handleLogin called');
-        //console.log(`uname: ${uname}`);
-        //console.log(`pword: ${pword}`);
-    }
-
-    useEffect(()=>{
-        if (uname){
-        navigate('/');
+    let parameters = {
+      method: "GET",
     };
-    },[uname, navigate]);
-    
 
-    return(
-        <form>
-            <h1>Login</h1>
-            <label>
-                Username
-                <input ref={unameRef} type="text" placeholder="Username"/>
-                <span className="errMsg">{errMsgCred}</span>
-            </label>
-            <br/>
-            <label>
-                Password
-                <input ref={pwordRef} type="password" placeholder="Password"></input>
-                <span className="errMsg">{errMsgCred}</span>
-            </label>
-            <br/>
-            <Link to="/register">Register New User</Link>&nbsp;&nbsp;
-            <br/>
-            <button onClick={handleLogin}type="button">Login</button>
-        </form>
-    );
-}
+    /*let url = `http://localhost:5000/user/${loginCreds.uname}`;*/
+    let url = `https://server-faq-app.onrender.com/user/${loginCreds.uname}`;
+    console.log(url);
+
+    fetch(url, parameters)
+      .then((res) => res.json())
+      .then((json) => {
+        //console.log(json.user[0]);
+        if (json.user[0].pword === loginCreds.pword) {
+          console.log("password is correct");
+          unameSetter(json.user[0].uname);
+          //console.log(json.user[0].uname);
+          //console.log(`JSON returned from the server: ${json} `);
+          navigate("/");
+        } else {
+          setErrMsgCred(errMsg);
+        }
+      })
+      .catch((err) => {
+        //console.log(err);
+        setErrMsgCred(errMsg);
+      });
+
+    //console.log('handleLogin called');
+    //console.log(`uname: ${uname}`);
+    //console.log(`pword: ${pword}`);
+  }
+
+  useEffect(() => {
+    if (uname) {
+      navigate("/");
+    }
+  }, [uname, navigate]);
+
+  return (
+    <form>
+      <h1>Login</h1>
+      <label>
+        Username
+        <input ref={unameRef} type="text" placeholder="Username" />
+        <span className="errMsg">{errMsgCred}</span>
+      </label>
+      <br />
+      <label>
+        Password
+        <input ref={pwordRef} type="password" placeholder="Password"></input>
+        <span className="errMsg">{errMsgCred}</span>
+      </label>
+      <br />
+      <Link to="/register">Register New User</Link>&nbsp;&nbsp;
+      <br />
+      <button onClick={handleLogin} type="button">
+        Login
+      </button>
+    </form>
+  );
+};
 
 export default Login;
